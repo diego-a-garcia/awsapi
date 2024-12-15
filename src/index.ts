@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://your-frontend-domain.com',
+    'http://fronent.s3-website-us-west-1.amazonaws.com/',
     'http://ec2-54-241-100-208.us-west-1.compute.amazonaws.com:3000'  // Add EC2 DNS
   ], 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
