@@ -15,8 +15,9 @@ const port = process.env.PORT || 3000;
 // CORS configuration
 app.use(cors({
   origin: [
-    'http://localhost:5173',  // Keep local development URL
-    'https://your-frontend-domain.com', // Add your AWS frontend URL
+    'http://localhost:5173',
+    'https://your-frontend-domain.com',
+    'http://ec2-54-241-100-208.us-west-1.compute.amazonaws.com:3000'  // Add EC2 DNS
   ], 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -35,10 +36,15 @@ const swaggerOptions = {
     servers: [
       {
         url: `http://localhost:${port}`,
+        description: 'Local Development'
       },
+      {
+        url: `http://ec2-54-241-100-208.us-west-1.compute.amazonaws.com:${port}`,
+        description: 'AWS EC2 Server'
+      }
     ],
   },
-  apis: ['./src/**/*.ts'], // files containing annotations
+  apis: ['./src/**/*.ts'],
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
@@ -84,7 +90,7 @@ app.get('/diego', (req: Request, res: Response) => {
     res.json({ name: 'Diego' });
   });
 
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Server is running at http://localhost:${port}`);
-  console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
+app.listen(Number(port), '0.0.0.0', () => {
+  console.log(`Server is running at http://ec2-54-241-100-208.us-west-1.compute.amazonaws.com:${port}`);
+  console.log(`Swagger docs available at http://ec2-54-241-100-208.us-west-1.compute.amazonaws.com:${port}/api-docs`);
 });
