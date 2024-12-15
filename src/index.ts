@@ -84,7 +84,7 @@ app.get('/diego', (req: Request, res: Response) => {
     res.json({ name: 'Diego' });
   });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
 });
